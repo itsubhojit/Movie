@@ -89,7 +89,7 @@ public class MainGridActivity extends AppCompatActivity {
 
         public void loadPopularMovies(){
 
-            String x = "084c79c7722ce9496963780c61fa46a1";
+            String x = "api_key";
             URL url = NetworkUtils.buildPopularMovieUrl(x);
             textRawData.setText(url.toString());
             new BackgroundTask_AsyncTask().execute(url);
@@ -99,7 +99,7 @@ public class MainGridActivity extends AppCompatActivity {
 
         public void loadTopRatedMovies(){
             //resetGridView();
-            String x = "084c79c7722ce9496963780c61fa46a1";
+            String x = "api_key";
             URL url = NetworkUtils.buildTopRatedMovieUrl(x);
             textRawData.setText(url.toString());
             new BackgroundTask_AsyncTask().execute(url);
