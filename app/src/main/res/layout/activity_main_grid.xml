@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainGridActivity"
+    android:orientation="vertical">
+    <GridView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/gridViewId"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:columnWidth="160dp"
+        android:numColumns="2"
+        android:verticalSpacing="16dp"
+        android:horizontalSpacing="16dp"
+        android:stretchMode="columnWidth"
+        android:gravity="center"
+        android:background="@android:color/holo_orange_light"
+        android:layout_margin="5dp"
+        android:padding="16dp"
+        />
+
+
+    <TextView
+        android:id="@+id/tv_error_message"
+        android:layout_width="236dp"
+        android:layout_height="83dp"
+        android:layout_gravity="center"
+        android:fontFamily="monospace"
+        android:text="@string/no_internet_connection_please_try_again"
+        android:visibility="visible" />
+    <ProgressBar
+        android:id="@+id/loadingIndecator"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        />
+
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:layout_gravity="bottom"
+        android:padding="16dp"
+        android:text="@string/text_data"
+        android:visibility="visible" />
+    
+
+</FrameLayout>
