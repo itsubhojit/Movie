@@ -14,9 +14,9 @@ import java.util.ArrayList;
 import java.util.List;
 import static android.content.Context.LAYOUT_INFLATER_SERVICE;
 
-public class ImageAdapter extends BaseAdapter {
+public class ImageAdapter {
 
-
+/*
     private Context mContext;
     private List<MovieModel> movieModelList;
     private int layoutResourceId;
@@ -61,5 +61,6 @@ public class ImageAdapter extends BaseAdapter {
             movieTitle.setText(movieModelList.get(i).getTitle());
             //moviePoster.setImageResource();
             return convertView;
-        }
+        }*/
+
     }

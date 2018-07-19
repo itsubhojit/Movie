@@ -66,7 +66,7 @@ public class SingleViewAdapter extends BaseAdapter {
             //gridView = new View(mContext);
             Log.d(TAG, " : PassedBy#Subhojit -> SingleViewAdapter - getView IF BEFORE INFLATE");
 
-            convertView =inflater.inflate(R.layout.custom_single_grid_view, null);
+            convertView =inflater.inflate(R.layout.single_image_text_view, null);
             Log.d(TAG, " : PassedBy#Subhojit -> SingleViewAdapter - getView IF AFTER INFLATE");
         }
 
