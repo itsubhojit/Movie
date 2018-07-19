@@ -108,7 +108,7 @@ public class MainGridActivity extends AppCompatActivity {
 
         public void loadDiscoveredMovies(){
 
-            String x = "084c79c7722ce9496963780c61fa46a1";
+            String x = "apy_key";
             URL url = NetworkUtils.buildDiscoverMovieUrl(x);
             Log.d(TAG, " : PassedBy#Subhojit -> loadDiscoveredMovies - buildDiscoverMovieUrl");
             textRawData.setText(url.toString());
