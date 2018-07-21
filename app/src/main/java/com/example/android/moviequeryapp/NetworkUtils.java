@@ -11,21 +11,23 @@ import java.util.Scanner;
 
 public class NetworkUtils {
     //https://api.themoviedb.org/3/discover/movie?api_key=084c79c7722ce9496963780c61fa46a1&language=en-US&sort_by=popularity.desc&page=1
-    final static String DISCOVER_MOVIE_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
+    private final static String DISCOVER_MOVIE_BASE_URL = "https://api.themoviedb.org/3/discover/movie";
 
-    final static String POPULAR_MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
+    private final static String POPULAR_MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/popular";
+
+    private final static String TOP_RATED_MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/top_rated";
+
+    private final static String IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w185";
 
 
-    final static String TOP_RATED_MOVIE_BASE_URL = "https://api.themoviedb.org/3/movie/top_rated";
-
-
-    final static String PARAM_QUERY = "api_key";
-    final static String PARAM_LANGUAGE = "language";
-    final static String PARAM_PAGE = "page";
-    final static String PARAM_SORT_BY = "sort_by";
-    final static String PARAM_INCLUDE_ADULT = "include_adult";
-    final static String PARAM_INCLUDE_VIDEO = "include_video";
+    private final static String PARAM_QUERY = "api_key";
+    private final static String PARAM_LANGUAGE = "language";
+    private final static String PARAM_PAGE = "page";
+    private final static String PARAM_SORT_BY = "sort_by";
+    private final static String PARAM_INCLUDE_ADULT = "include_adult";
+    private final static String PARAM_INCLUDE_VIDEO = "include_video";
     private static final int numPages = 1;
+    //final static String IMAGE_UNIQUE_NAME = "";
 
     //https://api.themoviedb.org/3/discover/movie?api_key=<<api_key>>
     //       &language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=1
@@ -50,7 +52,6 @@ public class NetworkUtils {
     }
 
 
-
     //https://api.themoviedb.org/3/movie/top_rated?api_key=<<api_key>>&language=en-US&page=1
     public static URL buildPopularMovieUrl(String passingApiKey) {
         Uri builtUri = Uri.parse(POPULAR_MOVIE_BASE_URL).buildUpon()
@@ -68,7 +69,6 @@ public class NetworkUtils {
 
         return url;
     }
-
 
 
     //https://api.themoviedb.org/3/movie/top_rated?api_key=<<api_key>>&language=en-US&page=1
@@ -89,7 +89,21 @@ public class NetworkUtils {
         return url;
     }
 
+    //  http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
+    public static URL buildImageUrl(String  uniqueImage){
 
+        Uri builtUri = Uri.parse(IMAGE_BASE_URL).buildUpon()
+                .appendQueryParameter(uniqueImage, null).build();
+
+
+        URL url = null;
+        try {
+            url = new URL(builtUri.toString());
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
     public static URL buildFinalMovieUrl(String stringUrl){
         Uri builtUri = Uri.parse(stringUrl).buildUpon()
@@ -107,7 +121,7 @@ public class NetworkUtils {
     }
 
 
-
+///////////////////   GETTING RESPONSE FROM HTTP SITE   /////////////////////////
     public static String getResponseFromHttpUrl(URL url) throws IOException {
         HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
         urlConnection.connect();

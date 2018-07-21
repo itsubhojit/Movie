@@ -13,9 +13,9 @@ import java.util.List;
 
 public final class ConvertJsonUnits {
     private static final String TAG = ConvertJsonUnits.class.getSimpleName();
-    private static List<MovieModel> movieModelList = new ArrayList<>();
+    private static ArrayList<MovieModel> movieModelList = new ArrayList<>();
 
-    public static List<MovieModel> getConvertedSimpleJsonData(String rawJsonData)
+    public static ArrayList<MovieModel> getConvertedSimpleJsonData(String rawJsonData)
         throws JSONException {
         Log.d(TAG, " : PassedBy#Subhojit -> ConvertJsonUnits - START");
 

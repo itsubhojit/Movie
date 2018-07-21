@@ -9,14 +9,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <ImageView
         android:id="@+id/gridItem_moviePoster"
-        android:layout_width="165dp"
-        android:layout_height="200dp"
-        android:scaleType="fitCenter"
+        android:layout_width="180dp"
+        android:layout_height="260dp"
+        android:scaleType="fitXY"
         android:padding="16dp"
-        android:layout_margin="10dp"
-        android:background="@android:color/holo_blue_light"
+        android:layout_margin="5dp"
         app:srcCompat="@drawable/exorcist"
-        android:contentDescription="@string/todo" />
+        android:layout_gravity="center_horizontal"
+        />
 
     <TextView
         android:id="@+id/gridItem_movieTitle"

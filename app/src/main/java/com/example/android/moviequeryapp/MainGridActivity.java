@@ -19,24 +19,30 @@ import com.example.android.moviequeryapp.models.MovieModel;
 import org.json.JSONException;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainGridActivity extends AppCompatActivity {
 
     private static final String TAG = MainGridActivity.class.getSimpleName();
 
- //  BackgroundTask_AsyncTask asyncTask = new BackgroundTask_AsyncTask(new BackgroundTask_AsyncTask.AsyncResponse() {
-//            @Override
-//            public void processFinish(List<MovieModel> output) {
-//                ImageAdapter imageAdapter = new ImageAdapter(this, R.layout.custom_grid_view_layout, output);
-//                movieItems.setAdapter(imageAdapter);
-//            }
-//        });
+/*
+        BackgroundTask_AsyncTask asyncTask = new BackgroundTask_AsyncTask(new BackgroundTask_AsyncTask.AsyncResponse() {
+            @Override
+            public void processFinish(List<MovieModel> output) {
+                ImageAdapter imageAdapter = new ImageAdapter(this, R.layout.custom_grid_view_layout, output);
+                movieItems.setAdapter(imageAdapter);
+            }
+        });
+*/
 
         private GridView movieItems;
         public static TextView textErrorMessage;
         private static ProgressBar loading;
         private static TextView textRawData;
+        private static TextView mData;
+        private SingleViewAdapter singleViewAdapterInstance;
+        private CustomAdapter customAdapter;
 
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -46,14 +52,19 @@ public class MainGridActivity extends AppCompatActivity {
             Log.d(TAG, " : PassedBy#Subhojit -> onCreate - START");
             setContentView(R.layout.activity_main_grid);
             movieItems = findViewById(R.id.gridViewId);
+
+            singleViewAdapterInstance = new SingleViewAdapter(getApplicationContext(), new ArrayList<MovieModel>());
+            movieItems.setAdapter(singleViewAdapterInstance);
+
+            /*customAdapter = new CustomAdapter(this,new ArrayList<MovieModel>());
+            movieItems.setAdapter(customAdapter);*/
+
             textRawData = findViewById(R.id.tv_test);
-            movieItems = findViewById(R.id.gridViewId);
+            mData = findViewById(R.id.tv_Data);
             textErrorMessage = findViewById(R.id.tv_error_message);
             loading = findViewById(R.id.loadingIndecator);
             loadDiscoveredMovies();
-            //loadPopularMovies();
             Log.d(TAG, " : PassedBy#Subhojit -> onCreate - FINISH");
-
         }
 
         @Override
@@ -86,10 +97,8 @@ public class MainGridActivity extends AppCompatActivity {
             }
         }
 
-
         public void loadPopularMovies(){
-
-            String x = "api_key";
+            String x = "084c79c7722ce9496963780c61fa46a1";
             URL url = NetworkUtils.buildPopularMovieUrl(x);
             textRawData.setText(url.toString());
             new BackgroundTask_AsyncTask().execute(url);
@@ -98,8 +107,7 @@ public class MainGridActivity extends AppCompatActivity {
         }
 
         public void loadTopRatedMovies(){
-            //resetGridView();
-            String x = "api_key";
+            String x = "084c79c7722ce9496963780c61fa46a1";
             URL url = NetworkUtils.buildTopRatedMovieUrl(x);
             textRawData.setText(url.toString());
             new BackgroundTask_AsyncTask().execute(url);
@@ -107,8 +115,7 @@ public class MainGridActivity extends AppCompatActivity {
         }
 
         public void loadDiscoveredMovies(){
-
-            String x = "apy_key";
+            String x = "084c79c7722ce9496963780c61fa46a1";
             URL url = NetworkUtils.buildDiscoverMovieUrl(x);
             Log.d(TAG, " : PassedBy#Subhojit -> loadDiscoveredMovies - buildDiscoverMovieUrl");
             textRawData.setText(url.toString());
@@ -131,9 +138,6 @@ public class MainGridActivity extends AppCompatActivity {
         }
 
         public void resetGridView(){
-            //movieItems.removeAllViews();
-//            LinearLayout linearLayout = findViewById(R.id.linearLayout);
-//            linearLayout.removeAllViews();
 
         }
 
@@ -153,7 +157,7 @@ public class MainGridActivity extends AppCompatActivity {
 //
 //    //=============================================================================//
 
-public class BackgroundTask_AsyncTask extends AsyncTask<URL, String, List<MovieModel>> {
+public class BackgroundTask_AsyncTask extends AsyncTask<URL, String, ArrayList<MovieModel>> {
 
 //    public AsyncResponse delegate = null;
 //
@@ -173,7 +177,7 @@ public class BackgroundTask_AsyncTask extends AsyncTask<URL, String, List<MovieM
         Log.d(TAG, " : PassedBy#Subhojit -> onPreExecute(){}");
     }
 
-    protected List<MovieModel> doInBackground(URL... urls) {
+    protected ArrayList<MovieModel> doInBackground(URL... urls) {
         Log.d(TAG, " : PassedBy#Subhojit -> doInBackground - START");
 
         if (urls.length == 0) {
@@ -189,7 +193,7 @@ public class BackgroundTask_AsyncTask extends AsyncTask<URL, String, List<MovieM
             Log.d(TAG, " : PassedBy#Subhojit -> doInBackground - AFTER GETTING JSON RAW DATA");
 
             Log.d(TAG, " : PassedBy#Subhojit -> doInBackground - BEFORE List<MovieModel> convertedJsonData");
-            List<MovieModel> convertedJsonData = ConvertJsonUnits.getConvertedSimpleJsonData(rawJsonDataFromServer);
+            ArrayList<MovieModel> convertedJsonData = ConvertJsonUnits.getConvertedSimpleJsonData(rawJsonDataFromServer);
             Log.d(TAG, " : PassedBy#Subhojit -> doInBackground - AFTER SUCCESS!!!  List<MovieModel> convertedJsonData");
             Log.d(TAG, " : PassedBy#Subhojit -> doInBackground - RETURN JSON DATA");
             return convertedJsonData;
@@ -207,27 +211,25 @@ public class BackgroundTask_AsyncTask extends AsyncTask<URL, String, List<MovieM
     }
 
     @Override
-    protected void onPostExecute(List<MovieModel> results) {
+    protected void onPostExecute(ArrayList<MovieModel> results) {
         Log.d(TAG, " : PassedBy#Subhojit -> onPostExecute - START");
-
         super.onPostExecute(results);
-        //String myStr = results.toString();
         loading.setVisibility(View.INVISIBLE);
         if(results != null){
             Log.d(TAG, " : PassedBy#Subhojit -> onPostExecute - IF-START");
-
-            //ImageAdapter imageAdapter = new ImageAdapter(getApplicationContext(),R.id.gridViewId,results);
-            SingleViewAdapter singleViewCreate = new SingleViewAdapter(getApplicationContext(),R.id.gridViewId,results);
-            movieItems.setAdapter(singleViewCreate);
+//            customAdapter.updateMovies(results);
+//            customAdapter.notifyDataSetChanged();
+            singleViewAdapterInstance.updateMovies(results);
+            singleViewAdapterInstance.notifyDataSetChanged();
+//            singleViewCreate = new SingleViewAdapter(getApplicationContext(),R.id.gridViewId);
+           // movieItems.setAdapter(singleViewAdapterInstance);
             Log.d(TAG, " : PassedBy#Subhojit -> onPostExecute - IF-> SetAdapter Done >>> SUCCESS");
 
         }else{
             showErrorMessage();
             Log.d(TAG, " : PassedBy#Subhojit -> onPostExecute - ELSE");
-
         }
-        //delegate.processFinish(results);
-       //textRawData.setText(results.toString());
+
         Log.d(TAG, " : PassedBy#Subhojit -> onPostExecute - END");
     }
 }

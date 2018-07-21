@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">MovieQueryApp</string>
     <string name="movieTitle">movie_title</string>
-    <string name="most_popular">most_popular</string>
-    <string name="top_rated">top_rated</string>
+    <string name="most_popular">Most Popular</string>
+    <string name="top_rated">Top Rated</string>
     <string name="no_internet_connection_please_try_again">Failed to fetch the data.   No internet connection.</string>
     <string name="text_data">Simple Json Data</string>
-    <string name="refresh">Refresh</string>
+    <string name="refresh">Home</string>
     <string name="todo">TODO</string>
     <string name="no_0">No.0</string>
+    <string name="data">Data</string>
 </resources>

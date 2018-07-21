@@ -1,42 +1,55 @@
 package com.example.android.moviequeryapp;
+import android.graphics.Color;
 import android.printservice.CustomPrinterIconCallback;
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.moviequeryapp.models.MovieModel;
 import com.squareup.picasso.Picasso;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
+import java.util.Objects;
 
 public class SingleViewAdapter extends BaseAdapter {
     private static final String TAG = SingleViewAdapter.class.getSimpleName();
     private Context mContext;
-    private List<MovieModel> movieModelList;
-    private int resource;
+    private ArrayList<MovieModel> movieModelList;
+    private LayoutInflater inflater;
 
-    public SingleViewAdapter(Context c, int gridViewId, List<MovieModel> results) {
-       // super(c, gridViewId, );
+
+    public SingleViewAdapter(Context c, ArrayList<MovieModel> movieList) {
         mContext = c;
-        resource = gridViewId;
-        movieModelList = results;
-
+        movieModelList = movieList;
+        inflater = LayoutInflater.from(c);
+        //movieModelList = new ArrayList<>();
 
         Log.d(TAG, " : PassedBy#Subhojit -> SingleViewAdapter - CONSTRUCTOR CALLED");
     }
 
     public int getCount() {
+        if(movieModelList.size() == 0)
+            return 0;
+        else
+           // return movieModelList.size();
         Log.d(TAG, " : PassedBy#Subhojit -> getCount - CALLED");
         return movieModelList.size();
     }
 
     public Object getItem(int position) {
-        return position;
+        return movieModelList.get(position);
     }
 
     public long getItemId(int position) {
@@ -45,126 +58,47 @@ public class SingleViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        View customView;
+        TextView movieTitle;
+        ImageView movieImage;
+        String imageUrl = "http://image.tmdb.org/t/p/w342//";
+
         Log.d(TAG, " : PassedBy#Subhojit -> getView - START");
-
-
-        //View gridView = null;
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        //LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         Log.d(TAG, " : PassedBy#Subhojit -> SingleViewAdapter - getView getSystemService");
+        //GridView gridView = convertView.findViewById(R.id.gridViewId);
 
-//        @Override public void getView(int position, View convertView, ViewGroup parent) {
-//            SquaredImageView view = (SquaredImageView) convertView;
-//            if (view == null) {
-//                view = new SquaredImageView(context);
-//            }
-//            String url = getItem(position);
-//
-//            Picasso.get().load(url).into(view);
-//        }
-//
         if (convertView == null) {
-            //gridView = new View(mContext);
+            customView = new View(mContext);
             Log.d(TAG, " : PassedBy#Subhojit -> SingleViewAdapter - getView IF BEFORE INFLATE");
-
-            convertView =inflater.inflate(R.layout.single_image_text_view, null);
+            customView = inflater.inflate(R.layout.single_image_text_view, parent, false);
             Log.d(TAG, " : PassedBy#Subhojit -> SingleViewAdapter - getView IF AFTER INFLATE");
-        }
-
-        String imageUrl = (String) getItem(position);
-
-        TextView movieTitle = convertView.findViewById(R.id.gridItem_movieTitle);
-        ImageView movieImage = convertView.findViewById(R.id.gridItem_moviePoster);
-        TextView textViewData = convertView.findViewById(R.id.gridItem_id);
-
-        textViewData.setText("At no." + (position+1));
-        movieTitle.setText(movieModelList.get(position).getTitle());
-        Picasso.get().load(imageUrl).into(movieImage);
-        //        Picasso.(mContext).load(imageUrl).into(movieImage);
-
-//        It’s constructed using 3 parts:
-//
-//
-//        The base URL will look like: http://image.tmdb.org/t/p/.
-//        Then you will need a ‘size’, which will be one of the following: "w92", "w154", "w185", "w342", "w500", "w780", or "original". For most phones we recommend using “w185”.
-//        And finally the poster path returned by the query, in this case “/nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg”
-//
-//        Combining these three parts gives us a final url of http://image.tmdb.org/t/p/w185//nBNZadXqJSdt05SHLqgT0HuC5Gm.jpg
-
-
-
-        return convertView;
-    }
-        /*ImageView imageView;
-        if (convertView == null) {
-            Log.d(TAG, " : PassedBy#Subhojit -> getView - IF");
-
-            // if it's not recycled, initialize some attributes
-            imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(85, 85));
-            imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-            imageView.setPadding(8, 8, 8, 8);
-        } else {
-            Log.d(TAG, " : PassedBy#Subhojit -> getView - ELSE");
-            imageView = (ImageView) convertView;
-        }
-
-        //imageView.setImageResource(mThumbIds[position]);
-        imageView.setImageResource(R.drawable.exorcist);
-        return imageView;*/
-
-   /*private Context mContext;
-   // private BackgroundTask_AsyncTask.AsyncResponse asyncResponse;
-
-    private List<MovieModel> movieModelList;
-    private int resource;
-    private LayoutInflater inflater;
-
-
-
-    public SingleViewAdapter(Context context, int resource, List<MovieModel> movieModelList ) {
-        this.mContext = context;
-        this.resource = resource;
-        this.movieModelList = movieModelList;
-    }
-
-    @Override
-    public int getCount() {
-        return movieModelList.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return 0;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        LayoutInflater inflater = (LayoutInflater) mContext
-                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        View gridView;
-        if(convertView == null){
-            gridView = new View(mContext);
-            gridView = inflater
-                    .inflate(R.layout.custom_single_grid_view, null);
-
-            TextView movieTitle = gridView.findViewById(R.id.gridItem_movieTitle);
-            movieTitle.setText(movieModelList.get(position).getTitle());
-            //Set image based on selected movie title
-            ImageView movieImage = gridView.findViewById(R.id.gridItem_moviePoster);
-            movieImage.setImageResource(Integer.parseInt(movieModelList.get(position).getPoster_path()));
-
 
         }else{
-            gridView = convertView;
+            customView = convertView;
         }
+        movieTitle = customView.findViewById(R.id.gridItem_movieTitle);
+        movieImage = customView.findViewById(R.id.gridItem_moviePoster);
+        TextView itemNumber = customView.findViewById(R.id.gridItem_id);
+        if(position %2 == 1)
+        {
+            // Set a background color for List / Grid View regular row/item
+            movieImage.setBackgroundColor(Color.parseColor("#302C2C"));
+        }
+        else {
+            // Set the background color for alternate row/item
+            movieImage.setBackgroundColor(Color.parseColor("#626B65"));
+        }
+        //System.out.print(position + " Subhojit Halder TAG");
+        itemNumber.setText("At no." + (position+1));
+        movieTitle.setText(movieModelList.get(position).getTitle());
+        // Image Resolutions : "w92", "w154", "w185", "w342", "w500", "w780", or "original"
+        Picasso.get().load(imageUrl + movieModelList.get(position).getPoster_path()).into(movieImage);
 
+        return customView;
+    }
 
-        return gridView;
-    }*/
+    public void updateMovies(ArrayList<MovieModel> items){
+        this.movieModelList = items;
+    }
 }
