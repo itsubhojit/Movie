@@ -37,10 +37,10 @@ public class MainGridActivity extends AppCompatActivity {
 */
 
         private GridView movieItems;
-        public static TextView textErrorMessage;
-        private static ProgressBar loading;
-        private static TextView textRawData;
-        private static TextView mData;
+        public  TextView textErrorMessage;
+        private  ProgressBar loading;
+        private  TextView textRawData;
+        private  TextView mData;
         private SingleViewAdapter singleViewAdapterInstance;
         private CustomAdapter customAdapter;
 
@@ -107,7 +107,7 @@ public class MainGridActivity extends AppCompatActivity {
         }
 
         public void loadTopRatedMovies(){
-            String x = "084c79c7722ce9496963780c61fa46a1";
+            String x = "";
             URL url = NetworkUtils.buildTopRatedMovieUrl(x);
             textRawData.setText(url.toString());
             new BackgroundTask_AsyncTask().execute(url);
@@ -185,7 +185,7 @@ public class BackgroundTask_AsyncTask extends AsyncTask<URL, String, ArrayList<M
         }
 
         URL searchUrl = urls[0];
-        URL url=null;
+        URL url;
 
         try {
             url = searchUrl;
